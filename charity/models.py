@@ -1,16 +1,6 @@
+from CharityConnections.enums import CharityCatagory
 from accounts.models import Contact
 from django.db import models
-from enum import Enum,auto
-
-class CharityCatagory(Enum):
-    PERSON = auto()
-    HEALTH = auto()
-    ANIMALS = auto()
-    ENVIRONMENT = auto()
-    EDUCATION = auto()
-
-    def toTuple(self):
-        return (self.value,self.name)
 
 
 class Charity(models.Model):

@@ -1,0 +1,82 @@
+﻿body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*center the images for the carousel on the landing page*/
+
+.carousel-item {
+    background-size: cover;
+    background-position: center center;
+    
+}
+
+
+.carousel-container p {
+    color: #F63;
+    font: bold;
+    font-weight: 800;
+    font-family: Garamond;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.tagline {
+    margin-right: 400px;
+}
+
+
+.row {
+    margin-top: 10px;
+}
+
+a{
+   padding-right: 30px;
+}
+
+footer {
+    background-color: #F63;
+    position: relative;
+}
+
+.main-tagline {
+    color: #F63;   
+    font-family: Garamond;
+    font: 36px bold;
+    margin-bottom: 0px;  
+
+}
+
+td {
+    padding-right: 0px;
+    background: #fffff0;
+}
+
+a:hover{
+    color:#F63;
+    text-decoration:none;
+}
+
+.card-header{
+
+}

@@ -1,0 +1,89 @@
+  
+﻿body {
+    background: #fffff0;
+}
+
+.navbar-custom {
+    background-color: #fffff0 !important;
+}
+
+#cc-logo {
+    float: left;
+    width: 100%;
+}
+
+a {
+    padding-right: 20px;
+}
+
+    a :hover {
+        color: #FF6633;
+    }
+
+#dropdownMenuButton {
+    background: none;
+}
+
+.dropdown-menu {
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+dropdown-item {
+    padding-bottom: 10px;
+}
+
+.row-bottom {
+    /*padding-left: 10px;*/
+}
+
+
+.navbar[target] {
+    /*width: 100%;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.nav-item img {
+    width: 50px;
+}
+
+.nav-item :hover {
+    color: #FF6633;
+}
+
+#nav-logo {
+    width: 100%;
+    float: left;
+}
+
+.volunteer-category-bar {
+    /* Spaces medallion links out */
+    margin-left: 35px;
+}
+
+footer {
+    background-color: #F63;
+    opacity: 0.90;
+    color: #FFFFFF;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    text-align: center;
+    line-height: 10px;
+    font-size: 12px;
+    padding-top: 12px;
+    padding-bottom: 14px;
+}
+
+#footer-link :hover {
+    color: #66ccff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav.navbar.sticky-top.navbar-expand-lg.navbar-light.bg-light.navbar-fixed-top.navbar-custom {
+    width: 100%;
+    float: left;
+}

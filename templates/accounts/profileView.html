@@ -1,0 +1,130 @@
+{% extends 'stolen/layout.html' %}
+{% load static %}
+
+{% block title %}
+Profile View
+{% endblock title %}
+
+{% block body %}
+<style>
+    a:hover {
+        color: #FF6633;
+        text-decoration: none;
+    }
+</style>
+<h4>Profile</h4>
+
+<table class="table table-user-information">
+    <tbody>
+        <tr>
+            <td>Full Name</td>
+            <td>{{user.fullname}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td>{{user.phone}}</td>
+        </tr>
+        <tr>
+            <td>Date Of Birth</td>
+            <td>{{user.dob}}</td>
+        </tr>
+        <tr>
+            <td><h4>Preferences</h4></td>
+        </tr>
+        <tr>
+            <td>Prefered Distance</td>
+            <td>{% if user.distance %}{{user.distance}}{%else%}No Preferences{%endif%}</td>
+        </tr>
+        <tr>
+            <td><h4>PreferedCategories</h4></td>
+        </tr>
+        <tr>
+            {% if prefCats %}
+                {% for item in prefCats %}
+                    <td class="nav-item overout col-1 volunteer-category-bar" title="@item.Desc">
+                        <a href="Category view">
+                            <img class="catImage" id="book" src="{% static '/Images/Category/book.svg'%}" />
+                        </a>
+                    </td>
+                {% endfor %}
+            {% else %}
+                <td>No preferences</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td>PreferedHelpingActions</td>
+        </tr>
+        <tr>
+            {% if prefActs %}
+                {% for item in prefActs %}
+                    <td class="nav-item overout col-1 volunteer-category-bar" title="item.Description">
+                        <a href="CategoryView">
+                            <img class="catImage" id="@(item.category.Image.Trim())" src="{% static '/Images/Category/book.svg'%}" />
+                        </a>
+                    </td>
+                {% endfor %}
+            {%else%}
+                <td>No Actions</td>
+
+            {% endif %}
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.PreferedCharities)</td>
+        </tr>
+        <tr>
+            @if (Model.PreferedCharities.ToList().Count != 0) copy and paste
+            {
+                foreach (var item in Model.PreferedCharities)
+                {
+                    <td class="nav-item overout col-1 volunteer-category-bar" title="@item.Name">
+                        <a href="@Url.Action("Details", "Charity", new { id = item.Email.Replace('.','-') })">
+                            <img class="col-2 " src="~/Content/Images/CCDefaultPlaceholder.gif" alt="@(item.Name) logo" title="View Charity">
+                        </a>
+                    </td>
+                }
+            }
+            else
+            {
+                <td>No Prefered Charities</td>
+
+            }
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <h5>Advanced</h5>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>Advanced</h5>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<table>
+    <tr>
+        <td>
+            @Html.ActionLink("My Events", "UserEventsView", "CharityEvent", new { id = Model.ContactInfo.MemberEmail })
+        </td>
+        <td>
+            @Html.ActionLink("Add Prefered Charities", "UserCharitiesView", "Charity", new { id = Model.ContactInfo.MemberEmail })
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Edit Profile", "Edit", new { id = Model.ContactInfo.MemberEmail })
+        </td>
+        <td>
+            @Html.ActionLink("Delete Profile", "Delete", new { id = Model.ContactInfo.MemberEmail })
+        </td>
+    </tr>
+</table>
+
+{% endblock body %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+    <script src="{% static '/js/navigation.js' %}" type="text/javascript"></script>
+    <style type="text/css" src="{% static 'layout.css' %}"></style>
+{% endblock head %}
+
+{% block content %}
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light navbar-fixed-top navbar-custom"  target="_lessBottomPad">
+        <div class="container" >
+            <div class="row nav1">
+                <div class="navbar-header col-sm-4">
+                    <!-- LOGO -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" id="cc-logo"  href="{% url 'home' %}">
+                            <img src="{% static '/Images/ccweblogo.png' %}"  alt="Site Logo" style="width:220px;" />
+                        </a>
+                    </div>
+
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="padding:0.25rem 0.75rem; margin-left:2rem">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                </div>
+
+                <!-- ADDED THIS DIV AS A TEMPORARY FIX TO SPACING ISSUE -->
+               <div class="col-sm-1"></div>
+
+                <!-- MAIN NAV LINKS -->
+                <div class="navbar-collapse collapse col-sm-8 float" id="navbarColor03" >
+
+                    <ul class="nav navbar-nav ml-auto row row-bottom">
+
+                        <li class="nav-item"><a class="btn btn-default" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item" id="findVolunteerBtn"><a class="btn btn-default" href="{% url 'home' %}">Find Volunteer Opportunities</a></li>
+                        <li class="nav-item" id="findCharityBtn"><a class="btn btn-default" href="{% url 'home' %}">Find Charities</a></li>
+
+                        <!--Profile Dropdown-->
+                        <div class="nav-item dropdown">
+                            <li class=" nav-item btn btn-default dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {% if user.is_authenticated %}
+                                    Profile
+                                {% else %}
+                                    Sign In
+                                {% endif %}
+                            </li>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                 {% if not user.is_authenticated %}
+                                    <li class="nav-item">@Html.ActionLink("Login", "LogInView", "LogIn")</li>
+                                    <li class="nav-item">@Html.ActionLink("Sign Up", "SignupView", "LogIn")</li>
+                                    <li class="nav-item">@Html.ActionLink("Charity Signup", "CharitySignupView", "LogIn")</li>
+
+                                {% else %}
+                                    <!-- if (Request.IsLocal){
+                                        <li class="dropdown-item">@Html.ActionLink(((CC.Connections.BL.Password)Session["member"]).MemberType.ToString(), "ProfileView", "VolunteerProfile")</li>
+                                    } -->
+                                    {% if user.membertype == 0 %}
+                                        <li class="dropdown-item"><a class="btn btn-default" href="{% url 'profileView' %}">My Account - TODO</a></li>
+                                    {% else %}
+                                        <li class="dropdown-item"><a class="btn btn-default" href="{% url 'home' %}">Charity Profile - TODO</a></li>
+                                    {% endif %}
+                                    <li class="dropdown-item" id="btnLogout"><a class="btn btn-default" href="{% url 'logout' %}">Logout</a></li>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- VOLUNTEER CATEGORIES NAVBAR -->
+    <div id="volunteerBar">
+        <nav class="navbar navbar-custom justify-content-center navbar-expand-lg navbar-light bg-light navbar-fixed-top" >
+            <!-- Added in this hr line because appending the second nav caused a line to appear under it -->
+            <div class="container">
+                <!--#region Removed this div to remove hamburger menu button from the mobile view -->
+                <!-- <div class="navbar-header"> -->
+                <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"> -->
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <!-- </button> -->
+                <!-- @Html.ActionLink("Charity Connections", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })-->
+                <!-- </div> -->
+                <!--#endregion-->
+                <div class="navbar-collapse " id="navbarColor03">
+                    <ul class="nav navbar-nav mr-auto row">
+                        <li class="col-1">
+                            {% for category in categoryList %}
+                                <li class="nav-item overout col-1 volunteer-category-bar" title="{{category.description}}">
+                                    <a href="#ViewCategory">
+                                        <img class="catImage" id="book" src="{% static '/Images/Category/Gray/book.svg' %}" />
+                                    </a>
+                                </li>
+                             {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container body-content">
+        {% block body %}
+        {% endblock body %}
+        <hr />
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>Disclaimer: We do not facilitate donations or transfer of funds through this website. You must contact independent charity group to donate. </p>
+                <address>Tropical's House</address>
+                <p>&copy; {% now "Y" %} - Charity Connections</p>
+            </div>
+        </footer>
+        <!-- Footer -->
+    </div>
+{% endblock content %}
+

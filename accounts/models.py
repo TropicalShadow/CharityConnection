@@ -4,8 +4,16 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib import auth
-
 from django.db import models
+from CharityConnections.enums import CharityCatagory, CharityAction
+
+from enum import Enum,auto
+
+class MemberType(Enum):
+    VOLUNTERR = auto()
+    CHARITY = auto()
+    def toTuple(self):
+        return (self.value,self.name)
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -68,7 +76,9 @@ class CharityUser(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
     email = models.EmailField(_('email address'),primary_key=True, blank=False,max_length=155)
-    contact = models.ForeignKey('Contact',on_delete=models.SET_NULL,null=True)
+    #contact = models.ForeignKey('Contact',on_delete=models.SET_NULL,null=True)
+    membertype =  models.IntegerField(choices=([i.toTuple() for i in MemberType]))
+    distance = models.IntegerField(null=True)
 
     is_staff = models.BooleanField(
         _('staff status'),
@@ -93,6 +103,20 @@ class CharityUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return str(self.email)
 
+    def fullname(self):
+        contact = Contact.objects.get(user=self)
+        if(contact ==None):return "No Name"
+        return f"{contact.first_name} {contact.last_name}"
+
+    def phone(self):
+        contact = Contact.objects.get(user=self)
+        if(contact ==None):return "No Phone"
+        return f"{contact.phone}"
+    def dob(self):
+        contact = Contact.objects.get(user=self)
+        if(contact ==None):return "No Dob"
+        return f"{contact.dob}"
+
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
@@ -108,6 +132,7 @@ class ContactManager(models.Manager):
         return contact
 
 class Contact(models.Model):
+    user = models.ForeignKey(CharityUser,on_delete=models.CASCADE)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     phone = PhoneNumberField()
@@ -116,3 +141,22 @@ class Contact(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} | {self.phone} | {self.dob}"
+
+class PreferredCategoryManager(models.Manager):
+    def create_preferredcategory(self,category,user):
+        preferredcategory = self.create(category=category,user=user)
+        return preferredcategory
+class PreferredCategory(models.Model):
+    user = models.ForeignKey(CharityUser,on_delete=models.CASCADE)
+    catagory = models.IntegerField(choices=([i.toTuple() for i in CharityCatagory]))
+
+    objects = PreferredCategoryManager()
+class PreferredActionManager(models.Manager):
+    def create_preferredaction(self,action,user):
+        preferredaction = self.create(action=action,user=user)
+        return preferredaction
+class PreferredAction(models.Model):
+    user = models.ForeignKey(CharityUser,on_delete=models.CASCADE)
+    action = models.IntegerField(choices=([i.toTuple() for i in CharityAction]))
+
+    objects = PreferredActionManager()

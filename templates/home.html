@@ -1,0 +1,78 @@
+{% extends 'stolen/layout.html' %}
+{% load static %}
+
+{% block title %}
+Home - HARD FLEX MODE
+{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'site.css' %}">
+{% endblock head %}
+
+
+{% block body %}
+<div class="main-tagline">
+    <p>Connecting volunteers and charities to create stronger communities. </p>
+</div>
+
+<!-- TEST CAROUSEL -->
+
+<div class="carousel-container pt-4">
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel" data-slide-to="1"></li>
+        </ul>
+        <div class="carousel-inner" style="max-height:480px; ">
+            <!-- ITEM 1 -->
+            <div class="carousel-item active">
+                <img src="{% static '/Images/bannerAd/bannerAd.png' %}" alt="volunteers helping" class="d-block img-fluid" height="480" />
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="margin-bottom:2px; background-color:coral; width:100%">Sign up to volunteer!</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- ITEM 2 -->
+            <div class="carousel-item">
+                <img src="{% static '/Images/bannerAd/charityBannerAd.png' %}" alt="charity by sign" class="d-block img-fluid" height="480" />
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 style="margin-bottom:2px; background-color:coral; width:100%">find volunteers today!</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTROLS -->
+            <a href="#carousel" class="carousel-control-prev " data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a href="#carousel" class="carousel-control-next " data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h2><a href="{% url 'login' %}" >SignUp</a> </h2> 
+        <p>
+            Would you like to volunteer your time to help others?
+        </p>
+        <!--<p><a class="btn btn-default" @Html.ActionLink("Volunteer", "SignupView", "LogIn")></a></p>-->
+    </div>
+    <div class="col-md-4">
+        <h2><a href="{% url 'login'%}">Start your Journey</a></h2>
+        <p>Is your charity group or organization in need of volunteers? </p>
+        <!--<p><a class="btn btn-default" @Html.ActionLink("Charity", "CharitySignupView", "LogIn") ></a></p>-->
+    </div>
+    <div class="col-md-4">
+        <h2><a href="{% url 'explorer' %}">Explorer Events</a></h2>
+        <p>Like to explore our site to learn more about who we are and what we do?</p>
+        <!--<p><a class="btn btn-default" @Html.ActionLink("Guest", "Index", "CharityEvent") ></a></p>-->
+    </div>
+</div>
+{% endblock body %}
